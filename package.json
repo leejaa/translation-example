@@ -2,16 +2,23 @@
   "name": "translation-example",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "translation": "node translation-script.js"
   },
   "dependencies": {
+    "@notionhq/client": "^2.2.1",
+    "axios": "^1.1.3",
+    "fs": "^0.0.1-security",
+    "i18next": "^22.0.2",
     "next": "12.3.1",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "react-i18next": "^12.0.0"
   },
   "devDependencies": {
     "@types/node": "18.11.3",
