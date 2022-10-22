@@ -1,7 +1,7 @@
 import { Client } from "@notionhq/client"
 import axios from 'axios';
 import fs from 'fs/promises';
-// import translation from "./translation.js";
+// import translation from "./translation.ts";
 
 const NOTION_DATABASE_ID = '27311a2255b848e791ee9c6101af3fe9';
 const TOKEN = 'secret_m7wZwX0CfCBvd7ogjNChWOU2dDAtSBHmRf6uMDkhQbt';
@@ -73,6 +73,7 @@ function createDatabase() {
       });
 }
 
+// 데이터를 추가해주는 함수
 async function addItem({ key, korean, english, taiwan }) {
   try {
     const response = await notion.pages.create({
@@ -135,6 +136,7 @@ async function insertCurrentData() {
   }
 }
 
+// 노션 데이터베이스 조회 후 번역파일 업데이트
 async function getDataAndMakeNewTranslation() {
   const result = await notion.databases.query({
     database_id: NOTION_DATABASE_ID,

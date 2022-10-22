@@ -1,7 +1,6 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import translation from './translation';
-// import ns1 from './ns1.json';
 
 type Property = keyof typeof translation;
 
@@ -48,19 +47,5 @@ i18n.use(initReactI18next).init({
     transSupportBasicHtmlNodes: true,
   },
 });
-
-// export const defaultNS = "ns1";
-// export const resources = {
-//   en: {
-//     ns1,
-//   },
-// } as const;
-
-// i18n.use(initReactI18next).init({
-//   lng: "en",
-//   ns: ["ns1"],
-//   defaultNS,
-//   resources
-// });
 
 export default i18n;
