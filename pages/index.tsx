@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 
 const Home: NextPage = () => {
   const { t } = useTranslation();
-  return <div>{t("테스트키")}</div>;
+  return <div>{t("general/a-sheet")}</div>;
 };
 
 export default Home;

@@ -1,7 +1,10 @@
-import { Client } from "@notionhq/client"
-import axios from 'axios';
-import fs from 'fs/promises';
-// import translation from "./translation.ts";
+const { Client } = require('@notionhq/client')
+const axios = require('axios');
+const fs = require('fs').promises;
+const { Parser } = require('i18next-scanner');
+const glob = require("glob")
+// const translation = require("./translation.js");
+const _ = require('lodash');
 
 const NOTION_DATABASE_ID = '27311a2255b848e791ee9c6101af3fe9';
 const TOKEN = 'secret_m7wZwX0CfCBvd7ogjNChWOU2dDAtSBHmRf6uMDkhQbt';
@@ -24,7 +27,7 @@ const PROPERTY = {
   키: '키',
   한국어: '한국어',
   영어: '영어',
-  대만어: '대만어'
+  대만어: '대만어',
 };
 
 // 노션에 데이터베이스를 생성해준다.
@@ -161,6 +164,40 @@ async function getDataAndMakeNewTranslation() {
   await fs.writeFile('./translation.ts', newTranslationText)
 
   console.log('번역 파일 업데이트 완료');
+}
+
+async function checkUnusedTranslationKeys() {
+  glob("**/*.tsx", {}, async function (er, filePathNames) {
+    const parser = new Parser();
+    for (const pathName of filePathNames) {
+      let content = '';
+      
+      content = await fs.readFile(`./${pathName}`, 'utf-8');
+      parser
+          .parseFuncFromString(content, { list: ['t']})
+    }
+      const result = parser.get();
+
+      const notionData = await notion.databases.query({
+        database_id: NOTION_DATABASE_ID,
+      })
+
+      const currentTranslationKeys = [];
+      
+      const data = notionData.results;
+
+      data.forEach((item) => {
+        currentTranslationKeys.push(item.properties[[PROPERTY.키]]['title'][0]['plain_text']);
+      });
+
+      const currentUsedTranslationKeys = Object.keys(result.en.translation);
+
+      const unUsedTranslationKeys = _.difference(currentTranslationKeys, currentUsedTranslationKeys);
+
+      await fs.writeFile('./unusedTranslationKey.json', `${JSON.stringify(unUsedTranslationKeys, null, 2)}`);
+      
+      console.log('추출 완료');
+  })  
 }
 
 getDataAndMakeNewTranslation();

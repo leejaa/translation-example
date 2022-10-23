@@ -1,5 +1,6 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
+import detector from "i18next-browser-languagedetector";
 import translation from './translation';
 
 type Property = keyof typeof translation;
@@ -34,12 +35,12 @@ export const resources = {
 
 export const defaultNS = 'ns1'
 
-i18n.use(initReactI18next).init({
+i18n.use(initReactI18next).use(detector).init({
   resources,
   lng: 'ko',
   ns: ["ns1"],
   fallbackLng: 'ko',
-  debug: false,
+  debug: true,
   interpolation: {
     escapeValue: false,
   },

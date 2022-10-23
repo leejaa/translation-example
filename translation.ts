@@ -1,5 +1,10 @@
 
   export default {
+  "general/a-sheet": {
+    "ko": "장",
+    "en": "sheet",
+    "tw": "장"
+  },
   "테스트키2": {
     "ko": "안녕한글",
     "en": "안녕영어",
@@ -389,11 +394,6 @@
     "ko": "완료",
     "en": "Complete",
     "tw": "완료"
-  },
-  "general/a-sheet": {
-    "ko": "장",
-    "en": "cards",
-    "tw": "장"
   },
   "general/accept": {
     "ko": "확인",
